@@ -1,6 +1,12 @@
 #footer {
-width:1003px; 
-background-color:#CC6600;
+  background: #7e7e7e;
+  color: #dbdbdb;
+  font-size: 11px;
+
+  .container {			
+	height: 110px;
+	padding: 10px 0;
+	}
 }
  
 .plinks {
