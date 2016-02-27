@@ -1,0 +1,29 @@
+#footer {
+width:1003px; 
+background-color:#CC6600;
+}
+ 
+.plinks {
+width:935px;
+margin: 20px 0px 20px 0px;
+}
+ 
+.plinks img {
+display:inline-block; 
+vertical-align:middle;
+margin-left:23px; 
+margin-right:23px;
+overflow: hidden;
+}
+
+div.wrapper {
+width:450px;
+}
+div.left_block {
+float:left;
+width:50px;
+}
+div.right_block {
+float:right;
+width:390px;
+}
