@@ -145,14 +145,51 @@
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 	
 	<script type="text/javascript">
+		dataCenter = function(){
+			function constructorFn(){
+				
+			};
+			
+			var content = [];
+			
+			var newsblock = "Hey, Data Center is online!";
+			
+			constructorFn.getData = function(input){
+				if (typeof input != "undefined"){
+					if (input != null){
+						// TODO: check who asks
+						if (input.block_name === "news"){
+							// give him news
+							//$.ajax({
+							//			url: "",
+							//			
+							//			success: input.callback();
+							//		}
+							//	   );
+							
+							input.callback(
+											{
+												news: newsblock, 
+												addon: "blablabla",
+												tododo: function (){alert("weee!!!!");}
+											}
+										   );
+						}
+					}
+				}
+			}
+		
+			return constructorFn;
+		}();
+	
 		newsBlock = function(){
 				function constructorFn(){
 				
 				};
 				
 				var content = "Hey, There be the great news!!!";
-				constructorFn.draw = function(viewId){
-					$(viewId).html(content);
+				constructorFn.draw = function(input){
+					$(input.view).html(input.content);
 				};
 				
 				return constructorFn;
@@ -184,7 +221,20 @@
 				var url = $(location).attr('href');
 				var chapter_id = url.substring(url.indexOf("#")+1);
 				if (chapter_id === "news"){
-					newsBlock.draw("#contentview");
+					//newsBlock.draw("#contentview");
+					dataCenter.getData(
+										{
+											block_name: chapter_id,
+											callback: function (input){
+														newsBlock.draw(
+																		{
+																			content: input.news,
+																			view: "#contentview"
+																		}
+																	);
+													  }
+										}
+									   );
 				} else if (chapter_id === "team"){
 					teamBlock.draw("#contentview");
 				};
