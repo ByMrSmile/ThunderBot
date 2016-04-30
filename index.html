@@ -26,12 +26,16 @@
 	<style>
 		body {
 			background-color: black;
-			background: url(image/BetaRobot.png) no-repeat center center fixed; 
+			background: url(image/desktop.jpg) no-repeat center center fixed; 
 			-webkit-background-size: cover;
 			-moz-background-size: cover;
 			-o-background-size: cover;
 			background-size: cover;
 		}
+		.menu-bullet{
+			background-color: rgba(255,255,255,0.5);
+		}
+		
 	</style>
 	
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -92,24 +96,25 @@
 				<div class="container-fluid">
 					<div class="row">
 						<ul class="nav nav-stacked">
-						  <li class="active"><a href="#">Главная</a></li>
-						  <li class="divider"></li>
-						  <li><a href="#team">О команде</a></li>
-						  <li class="divider"></li>
-						  <li><a href="#news">Новости</a></li>
-						  <li class="divider"></li>
-						  <li><a href="#contacts">Контакты</a></li>
+						  <li class="active menu-bullet"><a href="#">Главная</a></li>
+						  <li class="divider"><hr></li>
+						  <li class="menu-bullet"><a href="#team">О команде</a></li>
+						  <li class="divider"><hr></li>
+						  <li class="menu-bullet"><a href="#news">Новости</a></li>
+						  <li class="divider"><hr></li>
+						  <li class="menu-bullet"><a href="#contacts">Контакты</a></li>
+						  <li class="divider"><hr></li>
 						</ul>
 					</div>
 					<div class="row">
 						<ul class="nav nav-stacked">
-						  <li><a href="#">Войти</a></li>
+						  <li class="menu-bullet"><a href="#">Войти</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 			 
-			<div class="col-md-9 col-xs-12 jumbotron" style="background-color: rgba(255,255,255,0.5);">
+			<div class="col-md-9 col-xs-12 jumbotron main-block" style="background-color: rgba(255,255,255,0.5);">
 				<h1 id="hi_there" style="background-color: rgba(255,255,255,0);">
 				
 				</h1>
@@ -125,10 +130,10 @@
 	<div class="navbar navbar-fixed-bottom">
 		<div class="container-fluid" style="min-height: 50px; background-color: rgba(255,255,255,0.5);">
 			<div class="row">
-				<div class="col-md-3 twitter">twitter</div>
-				<div class="col-md-3 sitemap">sitemap</div>
-				<div class="col-md-3 social">social</div>
-				<div class="col-md-3 footer-logo">lolololologo</div>
+				<div class="col-md-3 col-xs-3 twitter">twitter</div>
+				<div class="col-md-3 col-xs-3 sitemap">sitemap</div>
+				<div class="col-md-3 col-xs-3 social">social</div>
+				<div class="col-md-3 col-xs-3 footer-logo">lolololologo</div>
 			</div>
 		</div>
 	</div>
@@ -143,78 +148,53 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+	<script src="js/datacenter.js"></script>
+	<script src="js/navigation.js"></script>
+	<script src="js/news.js"></script>
+	<script src="js/team.js"></script>
+	<script src="js/ui_control.js"></script>
 	
 	<script type="text/javascript">
-		dataCenter = function(){
-			function constructorFn(){
-				
-			};
-			
-			var content = [];
-			
-			var newsblock = "Hey, Data Center is online!";
-			
-			constructorFn.getData = function(input){
-				if (typeof input != "undefined"){
-					if (input != null){
-						// TODO: check who asks
-						if (input.block_name === "news"){
-							// give him news
-							//$.ajax({
-							//			url: "",
-							//			
-							//			success: input.callback();
-							//		}
-							//	   );
-							
-							content.append({
-											 id: "newsblock",
-											 data: "<div>blablabla</div>"
-										  });
-							
-							input.callback(
-											{
-												news: newsblock, 
-												addon: "blablabla",
-												tododo: function (){alert("weee!!!!");}
-											}
-										   );
-						}
-					}
+		function findBootstrapEnvironment() {
+			var envs = ['xs', 'sm', 'md', 'lg'];
+
+			var $el = $('<div>');
+			$el.appendTo($('body'));
+
+			for (var i = envs.length - 1; i >= 0; i--) {
+				var env = envs[i];
+
+				$el.addClass('hidden-'+env);
+				if ($el.is(':hidden')) {
+					$el.remove();
+					return env;
 				}
 			}
-		
-			return constructorFn;
-		}();
+		}
 	
-		newsBlock = function(){
-				function constructorFn(){
-				
-				};
-				
-				var content = "Hey, There be the great news!!!";
-				constructorFn.draw = function(input){
-					$(input.view).html(input.content);
-				};
-				
-				return constructorFn;
-		}();
 		
-		teamBlock = function(){
-				function constructorFn(){
-				
-				};
-				
-				var content = "Hey, Here's our team";
-				constructorFn.draw = function(viewId){
-					$(viewId).html(content);
-				};
-				
-				return constructorFn;
-		}();
-		
+	
 		$(document).ready(function(){
 		
+			// TODO: make a resize event handler
+			$(window).resize(function(){
+				// TODO: get window height
+				
+				// TODO: set height for the main block and for the menu bullets
+				$(".main-block").height();
+				$(".menu-bullet").height();
+			});
+		
+			var cur_env = findBootstrapEnvironment();
+			if ( cur_env === 'xs' | cur_env === 'sm' ){
+				// TODO: set the vertical background
+				$("body").css("background", "url(image/mob.jpg) no-repeat center center fixed");
+				$("body").css("background-size", "cover");
+			} else {
+				// TODO: set the horizontal background
+				$("body").css("background", "url(image/desktop.jpg) no-repeat center center fixed");
+				$("body").css("background-size", "cover");
+			} 
 			// Bind the url change event - change the site chapter.
 			$(window).on('hashchange', function(e){
 				hashchanged();
